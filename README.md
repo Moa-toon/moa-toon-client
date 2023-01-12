@@ -32,7 +32,7 @@
   <img src="https://img.shields.io/badge/Next.js-rgb(0,0,0)?style=flat&logo=Next.js&logoColor=white"/>
       <img src="https://img.shields.io/badge/Storybook-rgb(219,112,147)?style=flat-square&logo=Storybook&logoColor=white"/>
   <img src="https://img.shields.io/badge/Emotion-rgb(202, 101, 186)?style=flat&logo=styled-components&logoColor=white"/><br>
-      <img src="https://img.shields.io/badge/Justand-rgb(6, 79, 140)?style=flat-square&logo=CMake&logoColor=white">
+      <img src="https://img.shields.io/badge/Zustand-rgb(6, 79, 140)?style=flat-square&logo=CMake&logoColor=white">
   <img src="https://img.shields.io/badge/React-Query-rgb(255, 65, 84)?style=flat-square&logo=React-Query&logoColor=white">
   <img src="https://img.shields.io/badge/Vercel-rgb(0,0,0)?style=flat-square&logo=Vercel&logoColor=white"/>
 </div>
