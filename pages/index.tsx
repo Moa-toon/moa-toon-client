@@ -1,18 +1,8 @@
 import Carousel from '@components/banner/carousel';
+import BasicLayout from '@components/layouts/basicLayout';
 import styled from '@emotion/styled';
 import { unit } from '@styles/variables.style';
 import { NextPage } from 'next';
-
-const Wrap = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const BannerWrap = styled.div`
-    width: 100%;
-    height: ${unit(500)};
-`;
 
 //! 삭제 예정
 const BANNERS = [
@@ -62,12 +52,17 @@ const BANNERS = [
 
 const Home: NextPage = () => {
     return (
-        <Wrap>
+        <BasicLayout>
             <BannerWrap>
                 <Carousel items={BANNERS} />
             </BannerWrap>
-        </Wrap>
+        </BasicLayout>
     );
 };
 
 export default Home;
+
+const BannerWrap = styled.div`
+    width: 100%;
+    height: ${unit(500)};
+`;
