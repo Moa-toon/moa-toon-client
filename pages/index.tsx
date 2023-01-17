@@ -1,6 +1,8 @@
 import Carousel from '@components/banner/carousel';
+import ButtonList from '@components/button/buttonList';
 import CardList from '@components/card/cardList';
 import BasicLayout from '@components/layouts/basicLayout';
+import { DAY_OF_WEEK } from '@constants/common';
 import styled from '@emotion/styled';
 import { unit } from '@styles/variables.style';
 import { NextPage } from 'next';
@@ -132,6 +134,9 @@ const Home: NextPage = () => {
             </BannerWrap>
             <WebToonWrap>
                 <h1>네이버 웹툰</h1>
+                <ButtonsWrap>
+                    <ButtonList buttons={DAY_OF_WEEK} type="round" color="white" bgColor="lightgray" />
+                </ButtonsWrap>
                 <CardList cards={NAVER_CARDS} />
             </WebToonWrap>
         </BasicLayout>
@@ -159,4 +164,10 @@ const WebToonWrap = styled.div`
         color: black;
         font-weight: 700;
     }
+`;
+
+const ButtonsWrap = styled.div`
+    width: ${unit(180)};
+    height: ${unit(40)};
+    margin-bottom: ${unit(10)};
 `;
