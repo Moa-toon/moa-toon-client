@@ -54,7 +54,7 @@ const Carousel: React.FC<ICarousel> = (props) => {
                             <Des>{item.des}</Des>
                             <hr />
                             <GenreWithBadgesWrap>
-                                <Image src={LOGO_OF_PLATFORM[item.platForm]} width={21} height={21} alt={NAME_OF_LOGO[item.platForm]} />
+                                <Image src={LOGO_OF_PLATFORM[item.platform]} width={21} height={21} alt={NAME_OF_LOGO[item.platform]} />
                                 {/* //! 신작, 업데이트에 대한 boolean 조건 필요  */}
                                 <Badge text="신작" color="#FFFFFF" bgColor="#FFBC02" type="rectangle" />
                                 <Badge text="UP" color="#FFFFFF" bgColor="#FF1010" type="rectangle" />
