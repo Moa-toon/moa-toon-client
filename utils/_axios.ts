@@ -24,12 +24,7 @@ const _request = (): AxiosInstance => {
         (response) => {
             return response.data;
         },
-        (error) => {
-            console.log(error);
-            if (error.response.status === 401) {
-            }
-            return error.response.data;
-        }
+        async (error) => {}
     );
     return request;
 };

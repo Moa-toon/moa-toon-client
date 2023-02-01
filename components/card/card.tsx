@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 import { ICardProps } from 'types/components/card';
 
-const Card: React.FC<ICardProps> = ({ card }) => {
-    const { idx, title, thumbnail, platform, new: isNew, up, adult } = card;
+const Card: React.FC<ICardProps> = ({ card, platform }) => {
+    const { idx, title, thumbnailUrl, pageUrl, summary, isNew, isUpdated, isAdult } = card;
     //? next
     const router = useRouter();
 
@@ -16,15 +16,15 @@ const Card: React.FC<ICardProps> = ({ card }) => {
         <Wrap onClick={() => router.push(`/webtoons/${idx}`)}>
             <BadgesWrap>
                 <Image src={LOGO_OF_PLATFORM[platform]} width={21} height={21} alt={NAME_OF_LOGO[platform]} />
-                {up && <Badge text="UP" color="#FFFFFF" bgColor="#FF1010" type="rectangle" />}
+                {isUpdated && <Badge text="UP" color="#FFFFFF" bgColor="#FF1010" type="rectangle" />}
                 {isNew && <Badge text="신작" color="#FFFFFF" bgColor="#FFBC02" type="rectangle" />}
-                {adult == 19 && (
+                {isAdult && (
                     <AdultWrap>
                         <Badge text="19" color="#FFFFFF" bgColor="#FF1010" type="round" />
                     </AdultWrap>
                 )}
             </BadgesWrap>
-            <Image src={thumbnail} fill alt={`${title} 이미지`} />
+            <Image src={'https://dn-img-page.kakao.com/download/resource?kid=bV5qtB/hyRyPE91Rn/Sc84ysyH5O4AqXo1uFF2lK&filename=th3'} fill alt={`${title} 이미지`} />
             <Title>{title.replaceAll(' ', '\n')}</Title>
         </Wrap>
     );
@@ -33,8 +33,10 @@ const Card: React.FC<ICardProps> = ({ card }) => {
 export default Card;
 
 const Wrap = styled.div`
-    width: ${unit(180)};
-    height: ${unit(300)};
+    min-width: ${unit(180)};
+    min-height: ${unit(300)};
+    max-width: ${unit(180)};
+    max-height: ${unit(300)};
     display: flex;
     flex-direction: column;
     position: relative;

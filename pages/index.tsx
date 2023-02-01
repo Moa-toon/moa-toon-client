@@ -5,7 +5,9 @@ import BasicLayout from '@components/layouts/basicLayout';
 import { DAY_OF_WEEK } from '@constants/common';
 import styled from '@emotion/styled';
 import { unit } from '@styles/variables.style';
+import { _axios } from '@utils/_axios';
 import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 
 //! 삭제 예정
 const BANNERS = [
@@ -127,6 +129,15 @@ const NAVER_CARDS = [
 ];
 
 const Home: NextPage = () => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        _axios('GET', 'http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents?type=webtoon&platform=naver&updateDay=mon&page=1&take=100').then((res: any) => {
+            setData(res.data.items);
+            console.log(res);
+        });
+    }, []);
+
     return (
         <BasicLayout>
             <BannerWrap>
@@ -137,7 +148,11 @@ const Home: NextPage = () => {
                 <ButtonsWrap>
                     <ButtonList buttons={DAY_OF_WEEK} type="round" color="white" bgColor="lightgray" />
                 </ButtonsWrap>
-                <CardList cards={NAVER_CARDS} />
+                <CardList cards={data} platform="naver" />
+            </WebToonWrap>
+            <WebToonWrap>
+                <h1>카카오 웹툰</h1>
+                <CardList cards={data} platform="kakao" />
             </WebToonWrap>
         </BasicLayout>
     );
@@ -152,12 +167,11 @@ const BannerWrap = styled.div`
 
 const WebToonWrap = styled.div`
     width: 100%;
-    height: ${unit(400)};
     display: flex;
     flex-direction: column;
     padding: 0 ${unit(30)};
-    padding-top: ${unit(40)};
-    row-gap: ${unit(16)};
+    padding-top: ${unit(30)};
+    row-gap: ${unit(12)};
 
     h1 {
         font-size: ${unit(24)};

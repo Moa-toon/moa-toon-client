@@ -9,7 +9,7 @@ const ButtonList: React.FC<IButtonListProps> = (props) => {
     return (
         <_ButtonList>
             {buttons.map((button) => (
-                <BasicButton text={dayOfWeekMap[button]} type={type} color={color} bgColor={bgColor} />
+                <BasicButton key={button} text={dayOfWeekMap[button]} type={type} color={color} bgColor={bgColor} />
             ))}
         </_ButtonList>
     );
