@@ -12,8 +12,12 @@ const Card: React.FC<ICardProps> = ({ card, platform }) => {
     //? next
     const router = useRouter();
 
+    const onClick = (queryString: string) => {
+        router.push(`/${queryString.replaceAll(' ', '-')}`);
+    };
+
     return (
-        <Wrap onClick={() => router.push(`/webtoons/${idx}`)}>
+        <Wrap onClick={() => onClick(`?id=${idx}&title=${title}`)}>
             <BadgesWrap>
                 <Image src={LOGO_OF_PLATFORM[platform]} width={21} height={21} alt={NAME_OF_LOGO[platform]} />
                 {isUpdated && <Badge text="UP" color="#FFFFFF" bgColor="#FF1010" type="rectangle" />}
@@ -24,8 +28,8 @@ const Card: React.FC<ICardProps> = ({ card, platform }) => {
                     </AdultWrap>
                 )}
             </BadgesWrap>
-            <Image src={'https://dn-img-page.kakao.com/download/resource?kid=bV5qtB/hyRyPE91Rn/Sc84ysyH5O4AqXo1uFF2lK&filename=th3'} fill alt={`${title} 이미지`} />
-            <Title>{title.replaceAll(' ', '\n')}</Title>
+            <Image src={thumbnailUrl} fill alt={`${title} 이미지`} unoptimized={true} />
+            {/* <Title>{title.replaceAll(' ', '\n')}</Title> */}
         </Wrap>
     );
 };

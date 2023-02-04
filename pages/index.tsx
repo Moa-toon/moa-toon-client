@@ -1,13 +1,20 @@
+//? React, Framework
+import { useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import queryStore from '@store/query';
+import { useRouter } from 'next/router';
+
+//? UI, Framework
 import Carousel from '@components/banner/carousel';
 import ButtonList from '@components/button/buttonList';
 import CardList from '@components/card/cardList';
 import BasicLayout from '@components/layouts/basicLayout';
-import { DAY_OF_WEEK } from '@constants/common';
+
+//? 사용자 정의(style, image, type 등)
 import styled from '@emotion/styled';
 import { unit } from '@styles/variables.style';
+import { DAY_OF_WEEK } from '@constants/common';
 import { _axios } from '@utils/_axios';
-import { NextPage } from 'next';
-import { useEffect, useState } from 'react';
 
 //! 삭제 예정
 const BANNERS = [
@@ -55,86 +62,18 @@ const BANNERS = [
     }
 ];
 
-const NAVER_CARDS = [
-    {
-        idx: 1,
-        title: '마신은 평화롭게 살고싶다',
-        thumbnail: 'https://dn-img-page.kakao.com/download/resource?kid=2GBrs/hynaAdiJE6/vfYPqPEJpuzvumWvC1tNe1&filename=th3',
-        platform: 'naver',
-        new: true,
-        up: false,
-        adult: 0,
-        rest: false
-    },
-    {
-        idx: 2,
-        title: '에스티오',
-        thumbnail: 'https://dn-img-page.kakao.com/download/resource?kid=bV5qtB/hyRyPE91Rn/Sc84ysyH5O4AqXo1uFF2lK&filename=th3',
-        platform: 'naver',
-        new: false,
-        up: true,
-        adult: 0,
-        rest: false
-    },
-    {
-        idx: 3,
-        title: '테러맨',
-        thumbnail: 'https://comic-superstring.naver.com/img/pc/thumbnail_terror_man.jpg',
-        platform: 'naver',
-        new: false,
-        up: false,
-        adult: 0,
-        rest: false
-    },
-    {
-        idx: 4,
-        title: '트레이스 천둥의 귀인들',
-        thumbnail: 'https://dn-img-page.kakao.com/download/resource?kid=c9qCzG/hynaCV5teQ/F7LghsfvNCnSHIQI8lVKS0&filename=th3',
-        platform: 'naver',
-        new: true,
-        up: true,
-        adult: 19,
-        rest: false
-    },
-    {
-        idx: 5,
-        title: '검은머리 전술천재',
-        thumbnail: 'https://dn-img-page.kakao.com/download/resource?kid=OHeQ6/hzMT6qseXk/Jp89Yduxhy2iNkiP8Secsk&filename=th3',
-        platform: 'naver',
-        new: false,
-        up: true,
-        adult: 0,
-        rest: true
-    },
-    {
-        idx: 6,
-        title: '배우로서 살겠다',
-        thumbnail: 'https://dn-img-page.kakao.com/download/resource?kid=lNdNu/hzKkTgmFno/Wj65kvwkkjKPnAtvmDKHV1&filename=th3',
-        platform: 'naver',
-        new: false,
-        up: false,
-        adult: 0,
-        rest: false
-    },
-    {
-        idx: 7,
-        title: '스프린터',
-        thumbnail: 'https://dn-img-page.kakao.com/download/resource?kid=IraKO/hzN2lzYyB6/9oAfserIfKPxmMpHz2XUU1&filename=th3',
-        platform: 'naver',
-        new: false,
-        up: true,
-        adult: 0,
-        rest: false
-    }
-];
-
 const Home: NextPage = () => {
+    //? next
+    const router = useRouter();
+    //? store
+    const { query, SET_QUERY, RESET_QUERY } = queryStore();
+    //? state
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        _axios('GET', 'http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents?type=webtoon&platform=naver&updateDay=mon&page=1&take=100').then((res: any) => {
+        _axios('GET', 'http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents?type=webtoon&platform=naver&updateDay=mon&page=1&take=100', {}).then((res: any) => {
             setData(res.data.items);
-            console.log(res);
+            console.log(res.data.items);
         });
     }, []);
 
@@ -152,6 +91,10 @@ const Home: NextPage = () => {
             </WebToonWrap>
             <WebToonWrap>
                 <h1>카카오 웹툰</h1>
+                <CardList cards={data} platform="kakao" />
+            </WebToonWrap>
+            <WebToonWrap>
+                <h1>인기 웹툰</h1>
                 <CardList cards={data} platform="kakao" />
             </WebToonWrap>
         </BasicLayout>
