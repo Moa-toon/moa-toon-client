@@ -22,8 +22,4 @@ const _CardList = styled.div`
     column-gap: ${unit(10)};
     overflow-x: scroll;
     overflow-y: hidden;
-    /* ::-webkit-scrollbar {
-        display: none;
-    } */
-    /* transform: translate(-100%); */
 `;

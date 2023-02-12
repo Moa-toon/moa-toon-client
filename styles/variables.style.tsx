@@ -18,3 +18,9 @@ export const Font = {
         `
     }
 };
+
+export const Color = {
+    Purple: {
+        _500: 'rgb(129, 107, 255)'
+    }
+};

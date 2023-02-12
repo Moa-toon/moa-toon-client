@@ -9,7 +9,7 @@ export interface IQuery {
     take?: number;
     type?: string;
     platform?: string;
-    updateDay?: string;
+    updateDay: string;
     genres?: string;
     tags?: string;
     keyword?: string;

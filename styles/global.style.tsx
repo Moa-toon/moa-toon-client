@@ -65,12 +65,6 @@ export const ResetStyle = () => {
                     box-sizing: inherit;
                 }
 
-                img,
-                video {
-                    height: auto;
-                    max-width: 100%;
-                }
-
                 iframe {
                     border: 0;
                 }
@@ -99,6 +93,11 @@ export const ResetStyle = () => {
                     align-items: center;
                     padding-top: env(safe-area-inset-top);
                     padding-bottom: env(safe-area-inset-bottom);
+                }
+                div {
+                    ::-webkit-scrollbar {
+                        display: none;
+                    }
                 }
                 button {
                     border: none;

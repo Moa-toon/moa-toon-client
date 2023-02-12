@@ -1,20 +1,14 @@
 //? React, Framework
-import { useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import queryStore from '@store/query';
-import { useRouter } from 'next/router';
 
 //? UI, Framework
 import Carousel from '@components/banner/carousel';
-import ButtonList from '@components/button/buttonList';
-import CardList from '@components/card/cardList';
 import BasicLayout from '@components/layouts/basicLayout';
 
 //? 사용자 정의(style, image, type 등)
 import styled from '@emotion/styled';
 import { unit } from '@styles/variables.style';
-import { DAY_OF_WEEK } from '@constants/common';
-import { _axios } from '@utils/_axios';
+import Contents from '@components/contents';
 
 //! 삭제 예정
 const BANNERS = [
@@ -63,40 +57,17 @@ const BANNERS = [
 ];
 
 const Home: NextPage = () => {
-    //? next
-    const router = useRouter();
-    //? store
-    const { query, SET_QUERY, RESET_QUERY } = queryStore();
-    //? state
-    const [data, setData] = useState([]);
-
-    useEffect(() => {
-        _axios('GET', 'http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents?type=webtoon&platform=naver&updateDay=mon&page=1&take=100', {}).then((res: any) => {
-            setData(res.data.items);
-            console.log(res.data.items);
-        });
-    }, []);
-
     return (
         <BasicLayout>
             <BannerWrap>
                 <Carousel items={BANNERS} />
             </BannerWrap>
-            <WebToonWrap>
+            <ContentsWrap>
                 <h1>네이버 웹툰</h1>
-                <ButtonsWrap>
-                    <ButtonList buttons={DAY_OF_WEEK} type="round" color="white" bgColor="lightgray" />
-                </ButtonsWrap>
-                <CardList cards={data} platform="naver" />
-            </WebToonWrap>
-            <WebToonWrap>
+                <Contents platform="naver" />
                 <h1>카카오 웹툰</h1>
-                <CardList cards={data} platform="kakao" />
-            </WebToonWrap>
-            <WebToonWrap>
-                <h1>인기 웹툰</h1>
-                <CardList cards={data} platform="kakao" />
-            </WebToonWrap>
+                <Contents platform="kakao" />
+            </ContentsWrap>
         </BasicLayout>
     );
 };
@@ -105,26 +76,21 @@ export default Home;
 
 const BannerWrap = styled.div`
     width: 100%;
-    height: ${unit(655)};
+    height: ${unit(600)};
 `;
 
-const WebToonWrap = styled.div`
+const ContentsWrap = styled.div`
     width: 100%;
+    padding: 0 ${unit(30)};
+    height: ${unit(450)};
     display: flex;
     flex-direction: column;
-    padding: 0 ${unit(30)};
-    padding-top: ${unit(30)};
-    row-gap: ${unit(12)};
+    row-gap: ${unit(20)};
 
     h1 {
         font-size: ${unit(24)};
         color: black;
         font-weight: 700;
+        padding-top: ${unit(30)};
     }
-`;
-
-const ButtonsWrap = styled.div`
-    width: ${unit(180)};
-    height: ${unit(40)};
-    margin-bottom: ${unit(10)};
 `;

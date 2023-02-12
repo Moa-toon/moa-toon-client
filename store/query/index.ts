@@ -1,4 +1,4 @@
-import { IQuery, IQueryStore } from 'types/store/query';
+import { IQuery, IQueryStore } from './query';
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
 
@@ -7,7 +7,7 @@ const initQuery: IQuery = {
     take: 10,
     type: '',
     platform: '',
-    updateDay: '',
+    updateDay: 'mon',
     genres: '',
     tags: '',
     keyword: '',

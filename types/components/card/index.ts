@@ -1,6 +1,6 @@
 export interface ICardListProps {
     cards: ICard[];
-    platform: 'naver' | 'kakao';
+    platform: 'naver' | 'kakao' | 'lezhinComics';
 }
 
 export interface ICardProps {
@@ -10,12 +10,15 @@ export interface ICardProps {
 
 export interface ICard {
     ageLimit: number;
+    avgRating: number;
     idx: number;
     isAdult: boolean;
     isNew: boolean;
     isUpdated: boolean;
-    pageUrl: string;
+    platform: string;
     summary: string;
     thumbnailUrl: string;
     title: string;
+    urlOfMobile: string;
+    urlOfPc: string;
 }

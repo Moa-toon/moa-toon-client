@@ -116,7 +116,7 @@ const Wrap = styled.div`
 
 const SliderBox = styled.div`
     width: 100%;
-    height: ${unit(650)};
+    height: ${unit(600)};
     position: relative;
 
     img {

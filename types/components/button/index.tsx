@@ -1,13 +1,18 @@
+import { MouseEventHandler, ReactNode } from 'react';
+
 export interface IBasicButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-    text: string;
-    type: 'round' | 'rectangle';
+    text?: string;
+    shape: 'round' | 'rectangle';
     color: string;
     bgColor: string;
+    isActive: boolean;
 }
 
 export interface IButtonListProps {
     buttons: string[];
-    type: 'round' | 'rectangle';
+    shape: 'round' | 'rectangle';
     color: string;
     bgColor: string;
+    activeCondition: string;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
 }

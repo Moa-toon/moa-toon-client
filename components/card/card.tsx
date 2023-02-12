@@ -1,6 +1,7 @@
 import Badge from '@components/badge';
 import { LOGO_OF_PLATFORM, NAME_OF_LOGO } from '@constants/logo';
 import styled from '@emotion/styled';
+import dialogStore from '@store/dialog';
 import { unit } from '@styles/variables.style';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -8,12 +9,16 @@ import React from 'react';
 import { ICardProps } from 'types/components/card';
 
 const Card: React.FC<ICardProps> = ({ card, platform }) => {
-    const { idx, title, thumbnailUrl, pageUrl, summary, isNew, isUpdated, isAdult } = card;
+    const { idx, title, thumbnailUrl, urlOfPc, urlOfMobile, summary, isNew, isUpdated, isAdult } = card;
     //? next
     const router = useRouter();
 
+    //? store
+    const { HANDLE_DIALOG } = dialogStore();
+
     const onClick = (queryString: string) => {
         router.push(`/${queryString.replaceAll(' ', '-')}`);
+        HANDLE_DIALOG('item', true);
     };
 
     return (

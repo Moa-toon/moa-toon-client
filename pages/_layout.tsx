@@ -1,3 +1,4 @@
+import GlobalDialog from '@components/dialog/globalDialog';
 import styled from '@emotion/styled';
 import { ChildrenType } from '../types/pages/layout';
 
@@ -9,7 +10,12 @@ const Wrap = styled.div`
 `;
 
 export const Layout = ({ children }: ChildrenType) => {
-    return <Wrap>{children}</Wrap>;
+    return (
+        <Wrap>
+            {children}
+            <GlobalDialog />
+        </Wrap>
+    );
 };
 
 export default Layout;
