@@ -2,13 +2,19 @@ import Badge from '@components/badge';
 import { LOGO_OF_PLATFORM, NAME_OF_LOGO } from '@constants/logo';
 import styled from '@emotion/styled';
 import dialogStore from '@store/dialog';
-import { unit } from '@styles/variables.style';
+import { Color, unit } from '@styles/variables.style';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { ICardProps } from 'types/components/card';
+import { ICard } from 'types/components/card';
 
-const Card: React.FC<ICardProps> = ({ card, platform }) => {
+export interface _ICard {
+    card: ICard;
+    platform: string;
+    visibleTitle: boolean;
+}
+
+const Card: React.FC<_ICard> = ({ card, platform, visibleTitle }) => {
     const { idx, title, thumbnailUrl, urlOfPc, urlOfMobile, summary, isNew, isUpdated, isAdult } = card;
     //? next
     const router = useRouter();
@@ -34,7 +40,7 @@ const Card: React.FC<ICardProps> = ({ card, platform }) => {
                 )}
             </BadgesWrap>
             <Image src={thumbnailUrl} fill alt={`${title} 이미지`} unoptimized={true} />
-            {/* <Title>{title.replaceAll(' ', '\n')}</Title> */}
+            {visibleTitle && <Title>{title.replaceAll(' ', '\n')}</Title>}
         </Wrap>
     );
 };
@@ -60,6 +66,7 @@ const Wrap = styled.div`
 
     img {
         object-fit: cover;
+        background-color: ${Color.CARD._BACKGROUND};
     }
 `;
 
@@ -84,7 +91,7 @@ const AdultWrap = styled.div`
 const Title = styled.h2`
     width: 100%;
     color: white;
-    font-weight: 700;
+    font-weight: 600;
     text-align: center;
     font-size: ${unit(28)};
     position: absolute;

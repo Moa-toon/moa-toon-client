@@ -20,7 +20,7 @@ const DeskTopHeader = () => {
 
     return (
         <Wrap>
-            <Image src={IMG_MoaToonLogo} width={94} height={24} alt="로고이미지" onClick={() => router.push('/')} />
+            <Image src={IMG_MoaToonLogo} width={100} height={60} alt="로고이미지" onClick={() => router.push('/')} />
             <MenuWithSearchWrap>
                 <MenuWrap>
                     {MENUS.map((menu) => (

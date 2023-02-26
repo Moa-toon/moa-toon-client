@@ -14,12 +14,12 @@ if (process.env.NODE_ENV == 'production') {
 const nextConfig = {
     publicRuntimeConfig: {
         PROJECT_ROOT: __dirname,
-        API: process.env.API,
+        API: process.env.NEXT_PUBLIC_API,
         HOSTNAME: process.env.HOSTNAME
         // SECRET: process.env.NEXT_AUTH_SECRET
     },
     serverRuntimeConfig: {
-        API: process.env.API,
+        API: process.env.NEXT_PUBLIC_API,
         HOSTNAME: process.env.HOSTNAME
         // SECRET: process.env.NEXT_AUTH_SECRET
     },

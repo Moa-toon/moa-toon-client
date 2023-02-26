@@ -15,18 +15,28 @@ import CardList from '@components/card/cardList';
 import { _axios } from '@utils/_axios';
 import { DAY_OF_WEEK } from '@constants/common';
 import { dayOfWeekEnMap, dayOfWeekKoMap } from 'lib/common';
+import { useRouter } from 'next/router';
+import { ICard } from 'types/components/card';
+import { DAY_OF_TODAY } from '@constants/days/days';
 
 interface IContents {
     visibleBtn?: boolean;
+    visibleTitle: boolean;
+    contents: ICard[];
     platform: 'naver' | 'kakao' | 'lezhinComics';
 }
 
-const Contents: React.FC<IContents> = ({ visibleBtn, platform }) => {
+const Contents: React.FC<IContents> = ({ contents, platform, visibleBtn, visibleTitle }) => {
+    //? next
+    const router = useRouter();
+
     //? store
     const { query, SET_QUERY } = queryStore();
-    const { contents, SET_CONTENTS } = contentsStore();
+    // const { contents, SET_CONTENTS } = contentsStore();
 
-    const [dayOfWeek, setDayOfWeek] = useState<string>('mon');
+    //? state
+    const [dayOfWeek, setDayOfWeek] = useState<string>(DAY_OF_TODAY);
+    const [kakao, setKakao] = useState([]);
 
     //! 네이버, 카카오 등 컨텐츠 요일 클릭 시 네이버, 카카오 데이터가 모두 변경되는 이슈
     const handleDayOfWeek = (e: any) => {
@@ -34,16 +44,10 @@ const Contents: React.FC<IContents> = ({ visibleBtn, platform }) => {
         // SET_QUERY({ ...query, updateDay: dayOfWeekEnMap[e.target.innerText] });
     };
 
-    useEffect(() => {
-        _axios('GET', `http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents?type=webtoon&platform=naver&updateDay=${dayOfWeek}&page=1&take=100`, {}).then((res: any) => {
-            SET_CONTENTS(res.data.items);
-        });
-    }, [dayOfWeek]);
-
     return (
         <Wrap>
             <ButtonList buttons={DAY_OF_WEEK.map((day) => dayOfWeekKoMap[day])} shape="round" color="white" bgColor="lightgray" onClick={handleDayOfWeek} activeCondition={dayOfWeekKoMap[dayOfWeek]} />
-            <CardList cards={contents} platform={platform} />
+            <CardList cards={contents} platform={platform} visibleTitle={visibleTitle} />
         </Wrap>
     );
 };

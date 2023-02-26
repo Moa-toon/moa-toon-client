@@ -1,4 +1,5 @@
 import BasicButton from '@components/button/basicButton';
+import EpisodesCardList from '@components/card/episodesCardList';
 import { LOGO_OF_PLATFORM, NAME_OF_LOGO } from '@constants/logo';
 import styled from '@emotion/styled';
 import contentsStore from '@store/contents';
@@ -18,6 +19,7 @@ const ItemDialog = () => {
     useEffect(() => {
         if (router.query.id) {
             _axios('GET', `http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents/${router.query.id}`, {}).then((res: any) => {
+                console.log(res.data);
                 SET_CONTENT_BY_ID(res.data);
             });
         }
@@ -29,13 +31,14 @@ const ItemDialog = () => {
                 <InfoWrap>
                     <BadgeWrap>
                         <Badge>
-                            <Image src={IMG_Star} width={10} height={10} alt="평점" /> 4.1
+                            <Image src={IMG_Star} width={12} height={12} alt="평점" />
+                            <p>5.0</p>
                         </Badge>
-                        <Image src={LOGO_OF_PLATFORM['kakao']} width={21} height={21} alt={NAME_OF_LOGO['kakao']} />
+                        <Image src={LOGO_OF_PLATFORM[contentById.platform]} width={21} height={21} alt={NAME_OF_LOGO[contentById.platform]} />
                     </BadgeWrap>
                     <Title>{contentById.title}</Title>
                     <Genre>
-                        {contentById.genre.main} | 월 연재 | {contentById.ageLimitKor}
+                        {contentById.genre.main} | {contentById.updateDays && contentById.updateDays.join(',')} | {contentById.ageLimitKor}
                     </Genre>
                     <Authors>{contentById.authors.map((author) => `${author.name} `)}</Authors>
                     <BasicButton text="1화 보러가기" color="black" bgColor="white" shape="rectangle" isActive={false} />
@@ -51,7 +54,7 @@ const ItemDialog = () => {
                     <Image src={contentById.thumbnailUrl} width={500} height={600} alt="썸네일 이미지" unoptimized={true} />
                 </ThumbnailWrap>
             </InfoWithThumbnailWrap>
-            <EpisodeWrap></EpisodeWrap>
+            <EpisodeWrap>{contentById.episodes.items.length && <EpisodesCardList cards={contentById.episodes.items} />}</EpisodeWrap>
         </Wrap>
     );
 };
@@ -96,25 +99,33 @@ const ThumbnailWrap = styled.div`
     overflow: hidden;
     border-radius: ${unit(10)};
     z-index: 99;
+
+    img {
+        background-color: white;
+    }
 `;
 
 const BadgeWrap = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    column-gap: ${unit(8)};
+    column-gap: ${unit(6)};
     padding-top: ${unit(20)};
 `;
 
 const Badge = styled.div`
     font-weight: 500;
-    font-size: ${unit(14)};
-    text-align: center;
     color: white;
     background-color: rgb(50, 51, 74);
     border-radius: ${unit(4)};
     padding: ${unit(3)} ${unit(8)};
-    text-align: center;
+    font-size: ${unit(14)};
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    column-gap: ${unit(6)};
 `;
 
 const Title = styled.h1`
@@ -164,6 +175,6 @@ const Tag = styled.span`
 
 const EpisodeWrap = styled.div`
     width: 100%;
-    height: ${unit(600)};
     background-color: white;
+    padding: ${unit(40)} ${unit(60)};
 `;

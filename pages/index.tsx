@@ -9,6 +9,10 @@ import BasicLayout from '@components/layouts/basicLayout';
 import styled from '@emotion/styled';
 import { unit } from '@styles/variables.style';
 import Contents from '@components/contents';
+import { useEffect, useState } from 'react';
+import { _axios } from '@utils/_axios';
+import moment from 'moment-timezone';
+import { DAY_OF_TODAY } from '@constants/days/days';
 
 //! 삭제 예정
 const BANNERS = [
@@ -57,6 +61,24 @@ const BANNERS = [
 ];
 
 const Home: NextPage = () => {
+    //? state
+    const [naver, setNaver] = useState([]);
+    const [kakao, setKakao] = useState([]);
+    const [dayOfWeek, setDayOfWeek] = useState<string>(DAY_OF_TODAY);
+
+    //! 초반에는 화면에 다 보여질 정도의 웹툰 데이터만 가져오고 Next 클릭 시 이전 데이터 지워지고 페이지네이션 방식으로 다음 데이터가 보여지는 방향으로
+    useEffect(() => {
+        _axios('GET', `/contents?type=webtoon&platform=naver&updateDay=${dayOfWeek}&page=1&take=8`, {}).then((res: any) => {
+            setNaver(res.data.items);
+        });
+    }, [dayOfWeek]);
+
+    useEffect(() => {
+        _axios('GET', `/contents?type=webtoon&platform=kakao&updateDay=${dayOfWeek}&page=1&take=8`, {}).then((res: any) => {
+            setKakao(res.data.items);
+        });
+    }, [dayOfWeek]);
+
     return (
         <BasicLayout>
             <BannerWrap>
@@ -64,9 +86,9 @@ const Home: NextPage = () => {
             </BannerWrap>
             <ContentsWrap>
                 <h1>네이버 웹툰</h1>
-                <Contents platform="naver" />
+                <Contents contents={naver} platform="naver" visibleTitle={false} />
                 <h1>카카오 웹툰</h1>
-                <Contents platform="kakao" />
+                <Contents contents={kakao} platform="kakao" visibleTitle />
             </ContentsWrap>
         </BasicLayout>
     );

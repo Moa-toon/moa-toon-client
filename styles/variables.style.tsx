@@ -20,6 +20,13 @@ export const Font = {
 };
 
 export const Color = {
+    TEXT: {
+        _TITLE: '#121212',
+        _DES: '#8A8A8A'
+    },
+    CARD: {
+        _BACKGROUND: '#2b2e2e;'
+    },
     Purple: {
         _500: 'rgb(129, 107, 255)'
     }

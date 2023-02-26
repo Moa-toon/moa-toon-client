@@ -34,13 +34,15 @@ export interface IContentById {
             title: string;
             urlOfMobile: string;
             urlOfPc: string;
-        };
+        }[];
     };
     genre: { main: string; sub: string[] };
+    platform: string;
     idx: number;
     isAdult: boolean;
     isNew: boolean;
     isUpdated: boolean;
+    updateDays: string[];
     thumbnailUrl: string;
     title: string;
     urlOfMobile: string;
