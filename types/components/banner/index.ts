@@ -1,3 +1,16 @@
 export interface ICarousel {
-    items: { idx: number; title: string; platform: string; des: string; image: string }[];
+    items: IBanner[];
+}
+
+export interface IBanner {
+    ageLimit: number;
+    genres: string[];
+    idx: number;
+    isAdult: boolean;
+    isNew: boolean;
+    platform: string;
+    summary: string;
+    thumbnailUrl: string;
+    title: string;
+    type: string;
 }

@@ -36,7 +36,6 @@ const Contents: React.FC<IContents> = ({ contents, platform, visibleBtn, visible
 
     //? state
     const [dayOfWeek, setDayOfWeek] = useState<string>(DAY_OF_TODAY);
-    const [kakao, setKakao] = useState([]);
 
     //! 네이버, 카카오 등 컨텐츠 요일 클릭 시 네이버, 카카오 데이터가 모두 변경되는 이슈
     const handleDayOfWeek = (e: any) => {
@@ -56,6 +55,7 @@ export default Contents;
 
 const Wrap = styled.div`
     width: 100%;
+    min-height: ${unit(400)};
     display: flex;
     flex-direction: column;
     row-gap: ${unit(6)};

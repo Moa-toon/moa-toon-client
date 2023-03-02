@@ -22,6 +22,7 @@ export interface IContents {
 
 export interface IContentById {
     ageLimitKor: string;
+    avgRating: number;
     authors: { type: string; name: string }[];
     description: string;
     episodes: {
@@ -36,7 +37,7 @@ export interface IContentById {
             urlOfPc: string;
         }[];
     };
-    genre: { main: string; sub: string[] };
+    genre: string[];
     platform: string;
     idx: number;
     isAdult: boolean;

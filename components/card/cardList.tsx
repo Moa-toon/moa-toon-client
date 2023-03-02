@@ -27,5 +27,4 @@ const _CardList = styled.div`
     display: flex;
     column-gap: ${unit(10)};
     overflow-x: scroll;
-    overflow-y: hidden;
 `;

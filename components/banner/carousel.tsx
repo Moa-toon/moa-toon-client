@@ -2,7 +2,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import styled from '@emotion/styled';
-import { unit } from '@styles/variables.style';
+import { Color, unit } from '@styles/variables.style';
 import Image from 'next/image';
 import { ICarousel } from 'types/components/banner';
 import Badge from '@components/badge';
@@ -12,6 +12,10 @@ import { replaceSpaceToLineBreak } from 'lib/common';
 //? Image
 import IMG_ArrowLeft from '../../public/img/arrowLeft.svg';
 import IMG_ArrowRight from '../../public/img/arrowRight.svg';
+import { _axios } from '@utils/_axios';
+import { useRouter } from 'next/router';
+import dialogStore from '@store/dialog';
+import BasicButton from '@components/button/basicButton';
 
 const SlickBtnWrap = ({ currentSlide, slideCount, ...props }: any) => (
     <span style={{ display: 'none' }} {...props}>
@@ -40,32 +44,38 @@ const SETTINGS = {
     )
 };
 
-const Carousel: React.FC<ICarousel> = (props) => {
-    const { items } = props;
+const Carousel: React.FC<ICarousel> = ({ items }) => {
+    //? next
+    const router = useRouter();
+
+    //? store
+    const { HANDLE_DIALOG } = dialogStore();
+
+    const onClick = (queryString: string) => {
+        router.push(`/${queryString.replaceAll(' ', '-')}`);
+        HANDLE_DIALOG('item', true);
+    };
 
     return (
         <Wrap>
             <Slider {...SETTINGS}>
-                {items.map((item) => (
-                    <SliderBox key={item.idx}>
+                {items.map((banner) => (
+                    <SliderBox>
                         <InfoBox>
-                            {/* //! API 연동 필요  */}
-                            <h1>{replaceSpaceToLineBreak(item.title, 'second')}</h1>
-                            <Des>{item.des}</Des>
+                            <h1>{replaceSpaceToLineBreak(banner.title, 'second')}</h1>
+                            <Des>{banner.summary}</Des>
                             <hr />
                             <GenreWithBadgesWrap>
-                                <Image src={LOGO_OF_PLATFORM[item.platform]} width={21} height={21} alt={NAME_OF_LOGO[item.platform]} />
-                                {/* //! 신작, 업데이트에 대한 boolean 조건 필요  */}
+                                <Image src={LOGO_OF_PLATFORM[banner.platform]} width={21} height={21} alt={NAME_OF_LOGO[banner.platform]} />
                                 <Badge text="신작" color="#FFFFFF" bgColor="#FFBC02" type="rectangle" />
                                 <Badge text="UP" color="#FFFFFF" bgColor="#FF1010" type="rectangle" />
-                                {/* //! API 연동 필요  */}
                                 <Genre>웹툰 &#183; 드라마</Genre>
-                                {/* <Badge text="15" color="#FFFFFF" bgColor="#a1a1a1" type="round" /> */}
-                                {/* <Badge text="19" color="#FFFFFF" bgColor="#FF1010" type="round" /> */}
                             </GenreWithBadgesWrap>
+                            <ButtonWrap>
+                                <BasicButton text="보러가기" shape="rectangle" color="white" bgColor="" isActive onClick={() => onClick(`?id=${banner.idx}&title=${banner.title}`)} />
+                            </ButtonWrap>
                         </InfoBox>
-                        {/* //! alt 타이틀명으로 변경예정  */}
-                        <Image src={item.image} fill alt={item.title} />
+                        <Image src={banner.thumbnailUrl} fill alt={banner.title} unoptimized key={banner.idx} />
                     </SliderBox>
                 ))}
             </Slider>
@@ -118,9 +128,12 @@ const SliderBox = styled.div`
     width: 100%;
     height: ${unit(600)};
     position: relative;
+    cursor: pointer;
+    background-color: ${Color.CARD._BACKGROUND};
 
     img {
-        object-fit: cover;
+        background-color: ${Color.CARD._BACKGROUND};
+        object-fit: contain;
     }
 `;
 
@@ -165,4 +178,10 @@ const Genre = styled.p`
     display: flex;
     align-items: center;
     opacity: 0.8;
+`;
+
+const ButtonWrap = styled.div`
+    height: 100%;
+    min-width: ${unit(300)};
+    padding-top: ${unit(16)};
 `;

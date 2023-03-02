@@ -19,11 +19,12 @@ const ItemDialog = () => {
     useEffect(() => {
         if (router.query.id) {
             _axios('GET', `http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents/${router.query.id}`, {}).then((res: any) => {
-                console.log(res.data);
                 SET_CONTENT_BY_ID(res.data);
             });
         }
     }, [router.query.id]);
+
+    console.log(contentById);
 
     return (
         <Wrap>
@@ -32,23 +33,18 @@ const ItemDialog = () => {
                     <BadgeWrap>
                         <Badge>
                             <Image src={IMG_Star} width={12} height={12} alt="평점" />
-                            <p>5.0</p>
+                            <p>{contentById.avgRating}</p>
                         </Badge>
                         <Image src={LOGO_OF_PLATFORM[contentById.platform]} width={21} height={21} alt={NAME_OF_LOGO[contentById.platform]} />
                     </BadgeWrap>
                     <Title>{contentById.title}</Title>
                     <Genre>
-                        {contentById.genre.main} | {contentById.updateDays && contentById.updateDays.join(',')} | {contentById.ageLimitKor}
+                        {contentById.genre[0]} | {contentById.updateDays && contentById.updateDays.join(',')} | {contentById.ageLimitKor}
                     </Genre>
                     <Authors>{contentById.authors.map((author) => `${author.name} `)}</Authors>
                     <BasicButton text="1화 보러가기" color="black" bgColor="white" shape="rectangle" isActive={false} />
                     <Description>{contentById.description}</Description>
-                    <ButtonListWrap>
-                        <Tag>#{contentById.genre.main}</Tag>
-                        {contentById.genre.sub.map((genre) => (
-                            <Tag>#{genre}</Tag>
-                        ))}
-                    </ButtonListWrap>
+                    <ButtonListWrap>{contentById.genre.length && contentById.genre.map((tag) => <Tag>#{tag}</Tag>)}</ButtonListWrap>
                 </InfoWrap>
                 <ThumbnailWrap>
                     <Image src={contentById.thumbnailUrl} width={500} height={600} alt="썸네일 이미지" unoptimized={true} />

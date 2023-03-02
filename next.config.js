@@ -30,7 +30,7 @@ const nextConfig = {
     },
     reactStrictMode: true,
     images: {
-        domains: ['dn-img-page.kakao.com', 'comic-superstring.naver.com', 'image-comic.pstatic.net']
+        domains: ['dn-img-page.kakao.com', 'comic-superstring.naver.com', 'image-comic.pstatic.net', 'kr-a.kakaopagecdn.com']
     },
     webpack(config) {
         config.resolve.modules.push(__dirname);
