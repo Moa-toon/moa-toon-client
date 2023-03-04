@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import getConfig from 'next/config';
 
 interface IAxios {
@@ -29,7 +29,7 @@ const _request = (): AxiosInstance => {
     return request;
 };
 
-export const _axios = async (method: IAxios['method'], url: string, body?: any): Promise<IAxios['body']> => {
+export const _axios = async (method: IAxios['method'], url: string, body?: any): Promise<AxiosResponse> => {
     switch (method) {
         case 'GET':
             return await _request().get(url);

@@ -24,8 +24,6 @@ const ItemDialog = () => {
         }
     }, [router.query.id]);
 
-    console.log(contentById);
-
     return (
         <Wrap>
             <InfoWithThumbnailWrap>
@@ -44,7 +42,7 @@ const ItemDialog = () => {
                     <Authors>{contentById.authors.map((author) => `${author.name} `)}</Authors>
                     <BasicButton text="1화 보러가기" color="black" bgColor="white" shape="rectangle" isActive={false} />
                     <Description>{contentById.description}</Description>
-                    <ButtonListWrap>{contentById.genre.length && contentById.genre.map((tag) => <Tag>#{tag}</Tag>)}</ButtonListWrap>
+                    <ButtonListWrap>{contentById.genre.length && contentById.genre.map((tag) => <Tag key={tag}>#{tag}</Tag>)}</ButtonListWrap>
                 </InfoWrap>
                 <ThumbnailWrap bgImage={contentById.platform === 'kakao' ? contentById.thumbnailBackgroundUrl : ''}>
                     <Image src={contentById.thumbnailUrl} width={500} height={600} alt="썸네일 이미지" unoptimized={true} />

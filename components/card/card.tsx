@@ -40,7 +40,7 @@ const Card: React.FC<_ICard> = ({ card, platform, visibleTitle }) => {
                     </AdultWrap>
                 )}
             </BadgesWrap>
-            <Image src={thumbnailUrl} fill alt={`${title} 이미지`} unoptimized={true} />
+            <Image src={thumbnailUrl} fill alt={`${title} 이미지`} unoptimized={platform === 'kakao' ? false : true} />
             {visibleTitle && <Title>{title.replaceAll(' ', '\n')}</Title>}
         </Wrap>
     );

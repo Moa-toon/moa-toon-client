@@ -60,7 +60,7 @@ const Carousel: React.FC<ICarousel> = ({ items }) => {
         <Wrap>
             <Slider {...SETTINGS}>
                 {items.map((banner) => (
-                    <SliderBox bgImage={banner.platform === 'kakao' ? banner.thumbnailBackgroundUrl : ''}>
+                    <SliderBox key={banner.title} bgImage={banner.platform === 'kakao' ? banner.thumbnailBackgroundUrl : ''}>
                         <InfoBox>
                             <h1>{replaceSpaceToLineBreak(banner.title, 'second')}</h1>
                             <Des>{banner.summary}</Des>
@@ -75,7 +75,7 @@ const Carousel: React.FC<ICarousel> = ({ items }) => {
                                 <BasicButton text="보러가기" shape="rectangle" color="white" bgColor="" isActive onClick={() => onClick(`?id=${banner.idx}&title=${banner.title}`)} />
                             </ButtonWrap>
                         </InfoBox>
-                        <Image src={banner.thumbnailUrl} fill alt={banner.title} unoptimized key={banner.idx} />
+                        <Image key={banner.idx} src={banner.thumbnailUrl} fill alt={banner.title} unoptimized={banner.platform === 'kakao' ? false : true} />
                     </SliderBox>
                 ))}
             </Slider>
@@ -126,10 +126,12 @@ const Wrap = styled.div`
 
 const SliderBox = styled.div<{ bgImage: string }>`
     width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: ${unit(600)};
     position: relative;
     background-image: url(${(props) => props.bgImage});
-    background-size: cover;
     background-color: ${Color.CARD._BACKGROUND};
     img {
         object-fit: contain;
