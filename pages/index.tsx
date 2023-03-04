@@ -40,6 +40,8 @@ const Home: NextPage = () => {
         });
     }, [dayOfWeek]);
 
+    console.log(kakao);
+
     return (
         <BasicLayout>
             <BannerWrap>

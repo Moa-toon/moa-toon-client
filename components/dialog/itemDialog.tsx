@@ -46,7 +46,7 @@ const ItemDialog = () => {
                     <Description>{contentById.description}</Description>
                     <ButtonListWrap>{contentById.genre.length && contentById.genre.map((tag) => <Tag>#{tag}</Tag>)}</ButtonListWrap>
                 </InfoWrap>
-                <ThumbnailWrap>
+                <ThumbnailWrap bgImage={contentById.platform === 'kakao' ? contentById.thumbnailBackgroundUrl : ''}>
                     <Image src={contentById.thumbnailUrl} width={500} height={600} alt="썸네일 이미지" unoptimized={true} />
                 </ThumbnailWrap>
             </InfoWithThumbnailWrap>
@@ -86,7 +86,7 @@ const InfoWrap = styled.div`
     position: relative;
 `;
 
-const ThumbnailWrap = styled.div`
+const ThumbnailWrap = styled.div<{ bgImage: string }>`
     position: absolute;
     inset: ${unit(80)} ${unit(60)} auto auto;
     max-width: 100%;
@@ -95,10 +95,8 @@ const ThumbnailWrap = styled.div`
     overflow: hidden;
     border-radius: ${unit(10)};
     z-index: 99;
-
-    img {
-        background-color: white;
-    }
+    background-image: url(${(props) => props.bgImage});
+    background-size: cover;
 `;
 
 const BadgeWrap = styled.div`

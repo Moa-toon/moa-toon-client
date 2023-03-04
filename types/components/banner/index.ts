@@ -11,6 +11,7 @@ export interface IBanner {
     platform: string;
     summary: string;
     thumbnailUrl: string;
+    thumbnailBackgroundUrl: string;
     title: string;
     type: string;
 }

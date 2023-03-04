@@ -8,6 +8,7 @@ export interface ICard {
     platform: string;
     summary: string;
     thumbnailUrl: string;
+    thumbnailBackgroundUrl: string;
     title: string;
     urlOfMobile: string;
     urlOfPc: string;

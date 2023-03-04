@@ -45,6 +45,7 @@ export interface IContentById {
     isUpdated: boolean;
     updateDays: string[];
     thumbnailUrl: string;
+    thumbnailBackgroundUrl: string;
     title: string;
     urlOfMobile: string;
     urlOfPc: string;

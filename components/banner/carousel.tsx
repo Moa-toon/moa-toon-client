@@ -60,7 +60,7 @@ const Carousel: React.FC<ICarousel> = ({ items }) => {
         <Wrap>
             <Slider {...SETTINGS}>
                 {items.map((banner) => (
-                    <SliderBox>
+                    <SliderBox bgImage={banner.platform === 'kakao' ? banner.thumbnailBackgroundUrl : ''}>
                         <InfoBox>
                             <h1>{replaceSpaceToLineBreak(banner.title, 'second')}</h1>
                             <Des>{banner.summary}</Des>
@@ -124,15 +124,14 @@ const Wrap = styled.div`
     }
 `;
 
-const SliderBox = styled.div`
+const SliderBox = styled.div<{ bgImage: string }>`
     width: 100%;
     height: ${unit(600)};
     position: relative;
-    cursor: pointer;
+    background-image: url(${(props) => props.bgImage});
+    background-size: cover;
     background-color: ${Color.CARD._BACKGROUND};
-
     img {
-        background-color: ${Color.CARD._BACKGROUND};
         object-fit: contain;
     }
 `;
@@ -141,7 +140,7 @@ const InfoBox = styled.div`
     position: absolute;
     left: ${unit(80)};
     bottom: ${unit(42)};
-    max-width: ${unit(500)};
+    max-width: ${unit(300)};
     height: ${unit(300)};
     z-index: 999;
     color: rgb(255, 255, 255);
@@ -183,5 +182,6 @@ const Genre = styled.p`
 const ButtonWrap = styled.div`
     height: 100%;
     min-width: ${unit(300)};
+    max-width: ${unit(300)};
     padding-top: ${unit(16)};
 `;

@@ -3,6 +3,7 @@ import { LOGO_OF_PLATFORM, NAME_OF_LOGO } from '@constants/logo';
 import styled from '@emotion/styled';
 import dialogStore from '@store/dialog';
 import { Color, unit } from '@styles/variables.style';
+import { url } from 'inspector';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -15,7 +16,7 @@ export interface _ICard {
 }
 
 const Card: React.FC<_ICard> = ({ card, platform, visibleTitle }) => {
-    const { idx, title, thumbnailUrl, urlOfPc, urlOfMobile, summary, isNew, isUpdated, isAdult } = card;
+    const { idx, title, thumbnailUrl, thumbnailBackgroundUrl, urlOfPc, urlOfMobile, summary, isNew, isUpdated, isAdult } = card;
     //? next
     const router = useRouter();
 
@@ -28,7 +29,7 @@ const Card: React.FC<_ICard> = ({ card, platform, visibleTitle }) => {
     };
 
     return (
-        <Wrap onClick={() => onClick(`?id=${idx}&title=${title}`)}>
+        <Wrap onClick={() => onClick(`?id=${idx}&title=${title}`)} bgImage={platform === 'kakao' ? thumbnailBackgroundUrl : ''}>
             <BadgesWrap>
                 <Image src={LOGO_OF_PLATFORM[platform]} width={21} height={21} alt={NAME_OF_LOGO[platform]} />
                 {isUpdated && <Badge text="UP" color="#FFFFFF" bgColor="#FF1010" type="rectangle" />}
@@ -47,7 +48,7 @@ const Card: React.FC<_ICard> = ({ card, platform, visibleTitle }) => {
 
 export default Card;
 
-const Wrap = styled.div`
+const Wrap = styled.div<{ bgImage: string }>`
     min-width: ${unit(180)};
     min-height: ${unit(300)};
     max-width: ${unit(180)};
@@ -59,6 +60,7 @@ const Wrap = styled.div`
     border-radius: ${unit(6)};
     cursor: pointer;
     transition: all 0.2s linear;
+    background-image: url(${(props) => props.bgImage});
 
     :hover {
         transform: scale(1.1);
@@ -66,7 +68,6 @@ const Wrap = styled.div`
 
     img {
         object-fit: cover;
-        background-color: ${Color.CARD._BACKGROUND};
     }
 `;
 
