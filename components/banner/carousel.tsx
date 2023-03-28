@@ -16,6 +16,7 @@ import { _axios } from '@utils/_axios';
 import { useRouter } from 'next/router';
 import dialogStore from '@store/dialog';
 import BasicButton from '@components/button/basicButton';
+import { KAKAO } from '@constants/common';
 
 const SlickBtnWrap = ({ currentSlide, slideCount, ...props }: any) => (
     <span style={{ display: 'none' }} {...props}>
@@ -60,7 +61,7 @@ const Carousel: React.FC<ICarousel> = ({ items }) => {
         <Wrap>
             <Slider {...SETTINGS}>
                 {items.map((banner) => (
-                    <SliderBox key={banner.title} bgImage={banner.platform === 'kakao' ? banner.thumbnailBackgroundUrl : ''}>
+                    <SliderBox key={banner.title} bgImage={banner.platform === KAKAO ? banner.thumbnailBackgroundUrl : ''}>
                         <InfoBox>
                             <h1>{replaceSpaceToLineBreak(banner.title, 'second')}</h1>
                             <Des>{banner.summary}</Des>
@@ -75,7 +76,7 @@ const Carousel: React.FC<ICarousel> = ({ items }) => {
                                 <BasicButton text="보러가기" shape="rectangle" color="white" bgColor="" isActive onClick={() => onClick(`?id=${banner.idx}&title=${banner.title}`)} />
                             </ButtonWrap>
                         </InfoBox>
-                        <Image key={banner.idx} src={banner.thumbnailUrl} fill alt={banner.title} unoptimized={banner.platform === 'kakao' ? false : true} />
+                        <Image src={banner.thumbnailUrl} fill alt={banner.title} unoptimized={banner.platform === KAKAO ? false : true} />
                     </SliderBox>
                 ))}
             </Slider>

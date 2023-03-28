@@ -15,6 +15,7 @@ import { DAY_OF_TODAY } from '@constants/days/days';
 import { IBanner } from 'types/components/banner';
 import { ICard } from 'types/components/card';
 import daysStore from '@store/days';
+import { KAKAO, NAVER, WEB_TOON } from '@constants/common';
 
 export const getStaticProps: GetStaticProps = async (context) => {
     const { data: banners } = await _axios('GET', '/contents/banner-contents');
@@ -43,13 +44,13 @@ const Home: NextPage<IHome> = ({ banners, naver }) => {
 
     //! 초반에는 화면에 다 보여질 정도의 웹툰 데이터만 가져오고 Next 클릭 시 이전 데이터 지워지고 페이지네이션 방식으로 다음 데이터가 보여지는 방향으로
     useEffect(() => {
-        _axios('GET', `/contents?type=webtoon&platform=naver&updateDay=${days.naver}&page=1&take=8`, {}).then((res: any) => {
+        _axios('GET', `/contents?type=${WEB_TOON}&platform=${NAVER}&updateDay=${days.naver}&page=1&take=8`, {}).then((res: any) => {
             setNaverWebToon(res.data.items);
         });
     }, [days.naver]);
 
     useEffect(() => {
-        _axios('GET', `/contents?type=webtoon&platform=kakao&updateDay=${days.kakao}&page=1&take=8`, {}).then((res: any) => {
+        _axios('GET', `/contents?type=${WEB_TOON}&platform=${KAKAO}&updateDay=${days.kakao}&page=1&take=8`, {}).then((res: any) => {
             setKakaoWebToon(res.data.items);
         });
     }, [days.kakao]);

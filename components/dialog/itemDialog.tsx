@@ -1,5 +1,6 @@
 import BasicButton from '@components/button/basicButton';
 import EpisodesCardList from '@components/card/episodesCardList';
+import { KAKAO } from '@constants/common';
 import { LOGO_OF_PLATFORM, NAME_OF_LOGO } from '@constants/logo';
 import styled from '@emotion/styled';
 import contentsStore from '@store/contents';
@@ -17,11 +18,10 @@ const ItemDialog = () => {
     const { contentById, SET_CONTENT_BY_ID } = contentsStore();
 
     useEffect(() => {
-        if (router.query.id) {
-            _axios('GET', `http://ec2-3-36-247-191.ap-northeast-2.compute.amazonaws.com:8080/contents/${router.query.id}`, {}).then((res: any) => {
+        router.query.id &&
+            _axios('GET', `contents/${router.query.id}`, {}).then((res: any) => {
                 SET_CONTENT_BY_ID(res.data);
             });
-        }
     }, [router.query.id]);
 
     return (
@@ -40,11 +40,11 @@ const ItemDialog = () => {
                         {contentById.genre[0]} | {contentById.updateDays && contentById.updateDays.join(',')} | {contentById.ageLimitKor}
                     </Genre>
                     <Authors>{contentById.authors.map((author) => `${author.name} `)}</Authors>
-                    <BasicButton text="1화 보러가기" color="black" bgColor="white" shape="rectangle" isActive={false} />
+                    <BasicButton text="1화 보러가기" color="black" bgColor="white" shape="rectangle" isActive />
                     <Description>{contentById.description}</Description>
                     <ButtonListWrap>{contentById.genre.length && contentById.genre.map((tag) => <Tag key={tag}>#{tag}</Tag>)}</ButtonListWrap>
                 </InfoWrap>
-                <ThumbnailWrap bgImage={contentById.platform === 'kakao' ? contentById.thumbnailBackgroundUrl : ''}>
+                <ThumbnailWrap bgImage={contentById.platform === KAKAO ? contentById.thumbnailBackgroundUrl : ''}>
                     <Image src={contentById.thumbnailUrl} width={500} height={600} alt="썸네일 이미지" unoptimized={true} />
                 </ThumbnailWrap>
             </InfoWithThumbnailWrap>

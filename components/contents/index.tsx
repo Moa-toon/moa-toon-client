@@ -11,9 +11,10 @@ import CardList from '@components/card/cardList';
 
 //? 사용자 정의(style, image, type 등)
 import { _axios } from '@utils/_axios';
-import { DAY_OF_WEEK } from '@constants/common';
+
 import { dayOfWeekEnMap, dayOfWeekKoMap } from 'lib/common';
 import { ICard } from 'types/components/card';
+import { DAY_OF_WEEK } from '@constants/days/days';
 
 interface IContents {
     visibleBtn?: boolean;
